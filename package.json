@@ -1,5 +1,5 @@
 {
-  "name": "graphql",
+  "name": "graphql86",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -22,6 +22,7 @@
     "axios": "^0.19.2",
     "express": "^4.17.1",
     "express-graphql": "^0.11.0",
+    "graphql": "^15.3.0",
     "graphql-request": "^2.0.0"
   },
   "devDependencies": {
