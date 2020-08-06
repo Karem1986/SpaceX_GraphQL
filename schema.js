@@ -18,16 +18,28 @@ const RocketType = new GraphQLObjectType({
     })
 })
 
-//Launch type
+//Rocket type
+const LinksType = new GraphQLObjectType({
+    name: 'Links',
+    fields: () => ({
+        patch: { type: GraphQLString },
+        reddit: { type: GraphQLString },
+        flickr: { type: GraphQLString }
+    })
+})
 
+//Launch type
 const LaunchType = new GraphQLObjectType({
     name: 'Launch',
     fields: () => ({
         flight_number: { type: GraphQLInt },
         mission_name: { type: GraphQLString },
-        launch_year: { type: GraphQLString },
+        launch_year: { type: GraphQLInt },
         launch_date_local: { type: GraphQLString },
-        land_success: { type: GraphQLBoolean },
+        launch_success: { type: GraphQLBoolean },
+        details: { type: GraphQLString },
+        rocket: { type: RocketType }, //not working 
+        links: { type: LinksType } //not working 
     })
 })
 
@@ -38,8 +50,19 @@ const RootQuery = new GraphQLObjectType({
         launches: {
             type: new GraphQLList(LaunchType),
             resolve(parent, args) { //This is where we get our data
-                return axios.get('https://api.spacexdata.com/v4/launches')
+                return axios.get('https://api.spacexdata.com/v3/launches')
                     .then(res => res.data)
+            }
+        },
+        //Get an specific launch
+        launch: {
+            type: LaunchType,
+            args: {
+                flight_number: { type: GraphQLInt }
+            },
+            resolve(parent, args) {
+                //make a single request to get that simple launch:
+
             }
         }
     }
